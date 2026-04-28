@@ -1,0 +1,10 @@
+{
+  "_comment": "Map evaluator names (lowercased) to a language code: en, ar, or tr. The end user only types their name; the app looks up the language here. Add / edit / remove entries as needed. The _comment key is ignored.",
+
+  "alice": "en",
+  "bob": "en",
+  "ahmed": "ar",
+  "fatima": "ar",
+  "zeynep": "tr",
+  "mehmet": "tr"
+}

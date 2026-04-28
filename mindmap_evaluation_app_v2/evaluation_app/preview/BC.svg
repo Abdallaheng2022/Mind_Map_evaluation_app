@@ -1,0 +1,71 @@
+
+<svg width="640" height="220" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,0)">
+    
+    <rect width="310" height="220" fill="#ecfdf5" rx="8"/>
+    <text x="155" y="20" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="13" font-weight="700" fill="#0f172a">✓ GOOD — covers all key sections</text>
+    
+    <text x="155" y="55" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#475569" font-style="italic">Text has 4 sections: Bio · Career · Awards · Death</text>
+    <line x1="155" y1="100" x2="50" y2="170" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="155" y1="100" x2="110" y2="170" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="155" y1="100" x2="200" y2="170" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="155" y1="100" x2="260" y2="170" stroke="#64748b" stroke-width="1.5"/>
+    
+    <circle cx="155" cy="100" r="26" fill="#10b981" stroke="#0f172a" stroke-width="1"/>
+    <text x="155" y="103" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">Person</text>
+    
+    
+    <circle cx="50" cy="170" r="18" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="50" y="173" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">Bio</text>
+    
+    
+    <circle cx="110" cy="170" r="22" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="110" y="173" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="white" font-weight="600">Career</text>
+    
+    
+    <circle cx="200" cy="170" r="22" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="200" y="173" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="white" font-weight="600">Awards</text>
+    
+    
+    <circle cx="260" cy="170" r="20" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="260" y="173" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="white" font-weight="600">Death</text>
+    
+  </g>
+  <g transform="translate(330,0)">
+    
+    <rect width="310" height="220" fill="#fef2f2" rx="8"/>
+    <text x="155" y="20" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="13" font-weight="700" fill="#0f172a">✗ BAD — only 1 of 4 sections covered</text>
+    
+    <text x="155" y="55" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#475569" font-style="italic">Text has 4 sections: Bio · Career · Awards · Death</text>
+    <line x1="155" y1="100" x2="105" y2="170" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="155" y1="100" x2="205" y2="170" stroke="#64748b" stroke-width="1.5"/>
+    
+    <circle cx="155" cy="100" r="26" fill="#ef4444" stroke="#0f172a" stroke-width="1"/>
+    <text x="155" y="103" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">Person</text>
+    
+    
+    <circle cx="105" cy="170" r="22" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="105" y="173" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="white" font-weight="600">Career</text>
+    
+    
+    <circle cx="205" cy="170" r="20" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="205" y="173" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="white" font-weight="600">club</text>
+    
+    <text x="50" y="175" font-family="system-ui,sans-serif" font-size="11" fill="#94a3b8">…</text>
+    <text x="240" y="175" font-family="system-ui,sans-serif" font-size="11" fill="#94a3b8">…</text>
+    <text x="155" y="200" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#7f1d1d">→ Bio, Awards, Death missing</text>
+  </g>
+</svg>

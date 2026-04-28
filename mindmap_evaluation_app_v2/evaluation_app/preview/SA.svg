@@ -1,0 +1,59 @@
+
+<svg width="640" height="220" viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,0)">
+    
+    <rect width="310" height="220" fill="#ecfdf5" rx="8"/>
+    <text x="155" y="20" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="13" font-weight="700" fill="#0f172a">✓ GOOD — node says what text says</text>
+    
+    <text x="155" y="50" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#475569" font-style="italic">Source: "Paris is the capital of France"</text>
+    <line x1="155" y1="95" x2="90" y2="155" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="155" y1="95" x2="220" y2="155" stroke="#64748b" stroke-width="1.5"/>
+    
+    <circle cx="155" cy="90" r="26" fill="#10b981" stroke="#0f172a" stroke-width="1"/>
+    <text x="155" y="93" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">France</text>
+    
+    
+    <circle cx="90" cy="155" r="24" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="90" y="158" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">Paris</text>
+    
+    
+    <circle cx="220" cy="155" r="22" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="220" y="158" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="white" font-weight="600">capital</text>
+    
+    <text x="155" y="200" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#065f46">→ relation faithful to text</text>
+  </g>
+  <g transform="translate(330,0)">
+    
+    <rect width="310" height="220" fill="#fef2f2" rx="8"/>
+    <text x="155" y="20" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="13" font-weight="700" fill="#0f172a">✗ BAD — wrong / invented relation</text>
+    
+    <text x="155" y="50" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#475569" font-style="italic">Source: "Paris is the capital of France"</text>
+    <line x1="155" y1="95" x2="90" y2="155" stroke="#ef4444" stroke-width="1.5"/>
+    <line x1="155" y1="95" x2="220" y2="155" stroke="#ef4444" stroke-width="1.5"/>
+    
+    <circle cx="155" cy="90" r="26" fill="#ef4444" stroke="#0f172a" stroke-width="1"/>
+    <text x="155" y="93" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">Paris</text>
+    
+    
+    <circle cx="90" cy="155" r="26" fill="#3b82f6" stroke="#0f172a" stroke-width="1"/>
+    <text x="90" y="158" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">France</text>
+    
+    
+    <circle cx="220" cy="155" r="24" fill="#ef4444" stroke="#0f172a" stroke-width="1"/>
+    <text x="220" y="158" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="10" fill="white" font-weight="600">London</text>
+    
+    <text x="155" y="200" text-anchor="middle" font-family="system-ui,sans-serif"
+          font-size="9" fill="#7f1d1d">→ wrong root + hallucinated node</text>
+  </g>
+</svg>
