@@ -69,33 +69,142 @@ CRITERIA = [
      "Is the graph readable — neither too dense nor too sparse?"),
 ]
 
+# Per-language descriptive question shown under each criterion name
+CRITERIA_QUESTIONS = {
+    "en": {c[0]: c[2] for c in CRITERIA},
+    "ar": {
+        "SC": "هل الفروع والعقد منظَّمة في تسلسل هرمي منطقي ومُحكَم؟",
+        "SA": "هل تعكس تسميات العقد والعلاقات معنى النص الأصلي بأمانة؟",
+        "CC": "هل تُمثِّل العقدة الجذر المفهوم المحوري للنص؟",
+        "BC": "هل تمت تغطية المفاهيم الأساسية والفرعية في النص؟",
+        "GC": "هل الرسم مقروء — ليس مكتظًا ولا متناثرًا؟",
+    },
+    "tr": {
+        "SC": "Dallar ve düğümler mantıklı, iyi biçimlendirilmiş bir hiyerarşide mi?",
+        "SA": "Düğüm etiketleri ve ilişkiler kaynağın anlamını sadık biçimde yansıtıyor mu?",
+        "CC": "Kök düğüm, kaynak metnin merkezî kavramını tanımlıyor mu?",
+        "BC": "Metnin ana ve alt kavramları kapsanmış mı?",
+        "GC": "Grafik okunaklı mı — ne çok yoğun ne de çok seyrek?",
+    },
+}
+
+# Translated headings inside the criteria guide
+GUIDE_HEADINGS = {
+    "en": {"good": "**Mark Good ✅ if**",
+            "bad":  "**Mark Bad ❌ if**"},
+    "ar": {"good": "**ضع \"جيد\" ✅ إذا**",
+            "bad":  "**ضع \"ضعيف\" ❌ إذا**"},
+    "tr": {"good": "**Şu durumda İyi ✅ işaretleyin**",
+            "bad":  "**Şu durumda Kötü ❌ işaretleyin**"},
+}
+
 CRITERION_GUIDANCE = {
-    "SC": {"good": ["Parent → child links go in one direction (no cycles).",
-                    "Levels are balanced and meaningful.",
-                    "Sibling nodes are at comparable abstraction level."],
-           "bad": ["A child node also appears as a parent of the root.",
-                   "Random / unrelated branches share the same level.",
-                   "Crossing edges or duplicate sub-trees."]},
-    "SA": {"good": ["Every node label is supported by something in the text.",
-                    "Relations match what the text says (e.g., capital_of, born_in).",
-                    "No invented numbers, dates, or names."],
-           "bad": ["A node states a fact that contradicts the source.",
-                   "A relation is reversed (X is capital of Y instead of Y is capital of X).",
-                   "Hallucinated entities not present in the text."]},
-    "CC": {"good": ["The root names the entity / topic the text is about.",
-                    "If the text is about a person, the root IS that person."],
-           "bad": ["The root is a date, a country, or a minor sub-topic.",
-                   "The root is too generic (e.g. \"Information\")."]},
-    "BC": {"good": ["Every distinct section / paragraph of the source has a branch.",
-                    "Major facts (who, when, where, what) are reachable from the root."],
-           "bad": ["One paragraph is fully covered, others are completely missing.",
-                   "Numerical or list-like content (years, places) is collapsed into one node."]},
-    "GC": {"good": ["Each parent has 2–6 children (typical).",
-                    "Long phrases are split or summarised into readable labels.",
-                    "No isolated nodes that don't connect anywhere."],
-           "bad": ["A single parent has 10+ children at one level.",
-                   "Most labels are 30+ words long sentences.",
-                   "Only 1–2 nodes total, or hundreds with little structure."]},
+    "en": {
+        "SC": {"good": ["Parent → child links go in one direction (no cycles).",
+                        "Levels are balanced and meaningful.",
+                        "Sibling nodes are at comparable abstraction level."],
+               "bad": ["A child node also appears as a parent of the root.",
+                       "Random / unrelated branches share the same level.",
+                       "Crossing edges or duplicate sub-trees."]},
+        "SA": {"good": ["Every node label is supported by something in the text.",
+                        "Relations match what the text says (e.g., capital_of, born_in).",
+                        "No invented numbers, dates, or names."],
+               "bad": ["A node states a fact that contradicts the source.",
+                       "A relation is reversed (X is capital of Y instead of Y is capital of X).",
+                       "Hallucinated entities not present in the text."]},
+        "CC": {"good": ["The root names the entity / topic the text is about.",
+                        "If the text is about a person, the root IS that person."],
+               "bad": ["The root is a date, a country, or a minor sub-topic.",
+                       "The root is too generic (e.g. \"Information\")."]},
+        "BC": {"good": ["Every distinct section / paragraph of the source has a branch.",
+                        "Major facts (who, when, where, what) are reachable from the root."],
+               "bad": ["One paragraph is fully covered, others are completely missing.",
+                       "Numerical or list-like content (years, places) is collapsed into one node."]},
+        "GC": {"good": ["Each parent has 2–6 children (typical).",
+                        "Long phrases are split or summarised into readable labels.",
+                        "No isolated nodes that don't connect anywhere."],
+               "bad": ["A single parent has 10+ children at one level.",
+                       "Most labels are 30+ words long sentences.",
+                       "Only 1–2 nodes total, or hundreds with little structure."]},
+    },
+    "ar": {
+        "SC": {"good": ["الروابط من الأب إلى الأبناء في اتجاه واحد فقط (لا توجد دورات).",
+                        "المستويات متوازنة وذات دلالة.",
+                        "العقد الشقيقة على مستوى تجريد متقارب."],
+               "bad": ["عقدة ابن تظهر أيضًا كأب للجذر.",
+                       "فروع غير مترابطة تتقاسم المستوى نفسه.",
+                       "خطوط متقاطعة أو أشجار فرعية مكرَّرة."]},
+        "SA": {"good": ["كل تسمية عقدة مدعومة بشيء فعليّ في النص.",
+                        "العلاقات تطابق ما يقوله النص (مثل: عاصمة_لـ، وُلد_في).",
+                        "لا توجد أرقام أو تواريخ أو أسماء مختلَقة."],
+               "bad": ["عقدة تذكر معلومة تناقض النص الأصلي.",
+                       "علاقة معكوسة (مثلاً: X عاصمة Y بدلًا من Y عاصمة X).",
+                       "كيانات مهلوسة غير موجودة في النص."]},
+        "CC": {"good": ["الجذر يُسمِّي الكيان/الموضوع الذي يدور حوله النص.",
+                        "إذا كان النص عن شخص، فالجذر هو ذلك الشخص."],
+               "bad": ["الجذر تاريخ أو دولة أو موضوع فرعي ثانوي.",
+                       "الجذر عام بشكل مفرط (مثل: \"معلومات\")."]},
+        "BC": {"good": ["كل قسم/فقرة مميَّزة في النص لها فرع مقابل.",
+                        "الحقائق الرئيسية (من، متى، أين، ماذا) يمكن الوصول إليها من الجذر."],
+               "bad": ["فقرة واحدة مغطاة بالكامل، وأخرى غائبة كليًا.",
+                       "محتوى رقمي/قوائم (سنوات، أماكن) منهار في عقدة واحدة."]},
+        "GC": {"good": ["كل أب لديه عادةً من 2 إلى 6 أبناء.",
+                        "العبارات الطويلة مقسَّمة أو ملخَّصة إلى تسميات مقروءة.",
+                        "لا توجد عقد معزولة لا ترتبط بشيء."],
+               "bad": ["أب واحد له أكثر من 10 أبناء في مستوى واحد.",
+                       "معظم التسميات جمل من 30+ كلمة.",
+                       "عدد العقد 1 أو 2 فقط، أو مئات بلا بنية واضحة."]},
+    },
+    "tr": {
+        "SC": {"good": ["Ebeveyn → çocuk bağlantıları tek yönlüdür (döngü yok).",
+                        "Seviyeler dengeli ve anlamlıdır.",
+                        "Kardeş düğümler benzer soyutlama seviyesindedir."],
+               "bad": ["Bir çocuk düğüm aynı zamanda kökün ebeveyni olarak da görünür.",
+                       "Rastgele / ilgisiz dallar aynı seviyeyi paylaşır.",
+                       "Kesişen kenarlar veya yinelenen alt ağaçlar."]},
+        "SA": {"good": ["Her düğüm etiketi metindeki bir bilgiye dayanır.",
+                        "İlişkiler metnin söylediğiyle örtüşür (örn. başkenti, doğum yeri).",
+                        "Uydurma sayı, tarih veya isim yoktur."],
+               "bad": ["Bir düğüm kaynakla çelişen bir bilgi belirtir.",
+                       "Bir ilişki tersine çevrilmiştir (X, Y'nin başkentidir yerine Y, X'in başkentidir).",
+                       "Metinde olmayan, halüsinasyon kaynaklı varlıklar."]},
+        "CC": {"good": ["Kök, metnin konusu olan varlığı / temayı adlandırır.",
+                        "Metin bir kişi hakkındaysa, kök O kişidir."],
+               "bad": ["Kök; bir tarih, bir ülke veya küçük bir alt-konudur.",
+                       "Kök fazlasıyla geneldir (örn. \"Bilgi\")."]},
+        "BC": {"good": ["Kaynağın her ayrı bölümü/paragrafı için bir dal vardır.",
+                        "Temel olgular (kim, ne zaman, nerede, ne) köke ulaşılabilir."],
+               "bad": ["Bir paragraf tamamen ele alınmış, diğerleri tamamen eksiktir.",
+                       "Sayısal/liste içerik (yıllar, yerler) tek düğüme sıkıştırılmıştır."]},
+        "GC": {"good": ["Her ebeveynin tipik olarak 2–6 çocuğu vardır.",
+                        "Uzun ifadeler okunabilir etiketlere bölünmüş veya özetlenmiştir.",
+                        "Hiçbir yere bağlanmayan izole düğüm yoktur."],
+               "bad": ["Tek bir ebeveynin tek seviyede 10+ çocuğu vardır.",
+                       "Etiketlerin çoğu 30+ kelimelik cümlelerdir.",
+                       "Toplam 1–2 düğüm veya yapısı belirsiz yüzlerce düğüm."]},
+    },
+}
+
+# Localised criteria-guide intro shown above the per-criterion cards
+GUIDE_INTRO = {
+    "en": {
+        "title": "## 📖 The 5 evaluation criteria",
+        "body":  ("For every mind map you rate **5 criteria**, each as "
+                  "**Good (1)** or **Bad (0)**.  Read this once before you "
+                  "start; you can re-open it anytime."),
+    },
+    "ar": {
+        "title": "## 📖 المعايير الخمسة للتقييم",
+        "body":  ("لكل خريطة ذهنية ستُقيِّم **5 معايير**، كل معيار "
+                  "**جيد (1)** أو **ضعيف (0)**. اقرأ هذا مرّة قبل البدء، "
+                  "ويمكنك إعادة فتحه في أي وقت."),
+    },
+    "tr": {
+        "title": "## 📖 5 Değerlendirme Kriteri",
+        "body":  ("Her zihin haritası için **5 kriter** değerlendirirsiniz; "
+                  "her biri **İyi (1)** veya **Kötü (0)** olarak. Başlamadan "
+                  "önce bunu bir kez okuyun; istediğiniz zaman tekrar açabilirsiniz."),
+    },
 }
 
 CRITERIA_LABELS = {
@@ -113,21 +222,63 @@ UI = {
            "good": "Good", "bad": "Bad", "progress": "Progress",
            "done": "✅ All done — thank you for your evaluations.",
            "guide_btn": "📖 Criteria guide",
-           "switch": "Switch user"},
+           "switch": "Switch user",
+           "welcome_title": "Welcome — instructions",
+           "welcome_body": (
+               "<b>Thank you for taking part.</b> "
+               "You will rate <b>114 mind maps</b> (57 source passages × 2 LLM "
+               "models, model identity hidden). For each mind map you will see "
+               "the source passage and a live, zoomable diagram. "
+               "Rate the mind map on the <b>5 binary criteria</b> below "
+               "(<b>Good = 1</b>, <b>Bad = 0</b>) and click "
+               "<b>Submit and continue</b>. The order is randomised but "
+               "deterministic — you can close the tab and resume later; "
+               "previously rated maps will be skipped automatically. Read the "
+               "<b>📖 Criteria guide</b> at the top right at any time. "
+               "There are no right or wrong choices: please answer based on what "
+               "you actually see in each mind map."
+           )},
     "ar": {"title": "تقييم جودة الخرائط الذهنية",
            "source": "النص الأصلي", "mindmap": "الخريطة الذهنية",
            "comment": "تعليق اختياري", "submit": "إرسال ومتابعة",
            "good": "جيد", "bad": "ضعيف", "progress": "التقدم",
            "done": "✅ تم — شكرًا لتقييماتك.",
            "guide_btn": "📖 دليل المعايير",
-           "switch": "تبديل المستخدم"},
+           "switch": "تبديل المستخدم",
+           "welcome_title": "مرحبًا — تعليمات الاستخدام",
+           "welcome_body": (
+               "<b>شكرًا لمشاركتك.</b> "
+               "ستقوم بتقييم <b>114 خريطة ذهنية</b> (57 فقرة مصدر × نموذجَين، "
+               "هوية النموذج مخفية). لكل خريطة سترى النص الأصلي بجوار رسم "
+               "تفاعلي قابل للتكبير. قيِّم الخريطة على <b>المعايير الخمسة الثنائية</b> "
+               "(<b>جيد = 1</b>، <b>ضعيف = 0</b>) ثم اضغط "
+               "<b>إرسال ومتابعة</b>. الترتيب عشوائي ثابت لكل مستخدم، فيمكنك "
+               "إغلاق الصفحة والعودة لاحقًا — الخرائط المُقيَّمة تُتجاوز "
+               "تلقائيًا. يمكنك فتح <b>📖 دليل المعايير</b> في الأعلى في أي وقت. "
+               "لا توجد إجابة صحيحة أو خاطئة: قيِّم بناءً على ما تراه فعلًا في كل خريطة."
+           )},
     "tr": {"title": "Zihin Haritası Kalite Değerlendirmesi",
            "source": "Kaynak metin", "mindmap": "Zihin haritası",
            "comment": "İsteğe bağlı yorum", "submit": "Gönder ve devam et",
            "good": "İyi", "bad": "Kötü", "progress": "İlerleme",
            "done": "✅ Tamamlandı — teşekkürler.",
            "guide_btn": "📖 Kriter rehberi",
-           "switch": "Kullanıcı değiştir"},
+           "switch": "Kullanıcı değiştir",
+           "welcome_title": "Hoş geldiniz — kullanım talimatları",
+           "welcome_body": (
+               "<b>Katılımınız için teşekkürler.</b> "
+               "Toplam <b>114 zihin haritası</b> değerlendireceksiniz "
+               "(57 kaynak metin × 2 model, model adı gizli). Her harita için "
+               "kaynak metni ve yakınlaştırılabilir bir diyagramı yan yana "
+               "göreceksiniz. Aşağıdaki <b>5 ikili kriter</b> üzerinden "
+               "(<b>İyi = 1</b>, <b>Kötü = 0</b>) puan verin ve "
+               "<b>Gönder ve devam et</b>'e tıklayın. Sıra rastgele ama her "
+               "kullanıcı için sabittir; sekmeyi kapatıp daha sonra devam "
+               "edebilirsiniz — değerlendirilen haritalar otomatik atlanır. "
+               "Sağ üstteki <b>📖 Kriter rehberi</b>'ni istediğiniz zaman "
+               "açabilirsiniz. Doğru veya yanlış bir cevap yoktur: "
+               "her haritada gerçekten gördüğünüze göre puan verin."
+           )},
 }
 
 # ---------------------------------------------------------------------------
@@ -470,49 +621,96 @@ def inject_css(language):
     st.markdown(f"""
     <style>
       .block-container {{ padding-top: 1.5rem; max-width: 1200px; }}
+      /* Source card — explicitly set both bg AND text colour so it stays
+         readable in dark theme too (otherwise Streamlit sets text to white
+         which becomes invisible on the light card). */
       .source-card {{
-          background:#f8f9fb; border:1px solid #e3e6ee; border-radius:10px;
+          background:#f8f9fb !important;
+          color:#0f172a !important;
+          border:1px solid #e3e6ee; border-radius:10px;
           padding:14px 18px; max-height:540px; overflow-y:auto;
           font-size:0.95rem; line-height:1.55;
           direction:{rtl}; text-align:{'right' if rtl=='rtl' else 'left'};
       }}
+      .source-card * {{ color:#0f172a !important; }}
       .progress-pill {{ background:#eef3ff;color:#1d3a8a;padding:4px 12px;
                          border-radius:20px;font-weight:600;font-size:0.9rem;
                          display:inline-block; }}
       .crit-card {{ border:1px solid #e3e6ee; border-radius:10px; padding:12px;
-                    background:#fff; min-height: 110px; }}
-      .crit-name {{ font-weight: 700; font-size: 0.98rem; color:#0f172a; }}
-      .crit-code {{ display:inline-block; background:#1d3a8a; color:#fff;
+                    background:#fff !important; min-height: 110px; }}
+      .crit-card * {{ color:#0f172a !important; }}
+      .crit-name {{ font-weight: 700; font-size: 0.98rem; color:#0f172a !important; }}
+      .crit-code {{ display:inline-block; background:#1d3a8a;
+                     color:#fff !important;
                      padding:1px 8px; border-radius:6px; font-size:0.78rem;
                      font-weight:700; margin-right:6px; }}
-      .crit-q   {{ color:#475569; font-size:0.85rem; margin-top:4px; }}
+      .crit-q   {{ color:#475569 !important; font-size:0.85rem; margin-top:4px; }}
+      /* Welcome / instructions box — readable in both themes */
+      .welcome-box {{
+          background:#fffbeb !important;
+          color:#1f2937 !important;
+          border:1px solid #fbbf24; border-radius:10px;
+          padding:14px 18px; margin: 6px 0 14px 0;
+          font-size:0.97rem; line-height:1.6;
+      }}
+      .welcome-box * {{ color:#1f2937 !important; }}
+      .welcome-box h4 {{ margin:0 0 6px 0; color:#92400e !important; }}
     </style>
     """, unsafe_allow_html=True)
 
 
-def criteria_guide():
-    st.markdown("## 📖 The 5 evaluation criteria")
-    st.write(
-        "For every mind map you rate **5 criteria**, each as **Good (1)** or "
-        "**Bad (0)**.  Read this once before you start; you can re-open it anytime."
-    )
-    for code, name, question in CRITERIA:
+def criteria_guide(lang: str = "en"):
+    """Render the criteria guide. `lang` ∈ {"en","ar","tr"}; falls back to en."""
+    if lang not in ("en", "ar", "tr"):
+        lang = "en"
+
+    intro = GUIDE_INTRO[lang]
+    rtl = (lang == "ar")
+    rtl_attr = "dir='rtl'" if rtl else ""
+    rtl_style = "direction:rtl;text-align:right;" if rtl else ""
+
+    st.markdown(intro["title"])
+    if rtl:
+        # Streamlit's default markdown is LTR; wrap Arabic body in RTL container
+        st.markdown(f"<div style='{rtl_style}'>{intro['body']}</div>",
+                    unsafe_allow_html=True)
+    else:
+        st.write(intro["body"])
+
+    questions = CRITERIA_QUESTIONS[lang]
+    headings  = GUIDE_HEADINGS[lang]
+    guidance  = CRITERION_GUIDANCE[lang]
+    labels    = CRITERIA_LABELS[lang]
+
+    for code, _en_name, _en_q in CRITERIA:
+        name     = labels[code]
+        question = questions[code]
         with st.container(border=True):
             cols = st.columns([1, 2])
             with cols[0]:
                 st.markdown(
-                    f"<div class='crit-name'><span class='crit-code'>{code}</span>{name}</div>"
-                    f"<div class='crit-q'>{question}</div>",
+                    f"<div class='crit-name' {rtl_attr} style='{rtl_style}'>"
+                    f"<span class='crit-code'>{code}</span>{name}</div>"
+                    f"<div class='crit-q' {rtl_attr} style='{rtl_style}'>{question}</div>",
                     unsafe_allow_html=True)
-                st.markdown("**Mark Good ✅ if**")
-                for b in CRITERION_GUIDANCE[code]["good"]:
-                    st.markdown(f"- {b}")
-                st.markdown("**Mark Bad ❌ if**")
-                for b in CRITERION_GUIDANCE[code]["bad"]:
-                    st.markdown(f"- {b}")
+                # Good list
+                if rtl:
+                    items_good = "".join(f"<li>{b}</li>" for b in guidance[code]["good"])
+                    st.markdown(
+                        f"<div style='{rtl_style}'>{headings['good']}"
+                        f"<ul>{items_good}</ul></div>", unsafe_allow_html=True)
+                    items_bad = "".join(f"<li>{b}</li>" for b in guidance[code]["bad"])
+                    st.markdown(
+                        f"<div style='{rtl_style}'>{headings['bad']}"
+                        f"<ul>{items_bad}</ul></div>", unsafe_allow_html=True)
+                else:
+                    st.markdown(headings["good"])
+                    for b in guidance[code]["good"]:
+                        st.markdown(f"- {b}")
+                    st.markdown(headings["bad"])
+                    for b in guidance[code]["bad"]:
+                        st.markdown(f"- {b}")
             with cols[1]:
-                # Use components.v1.html — st.markdown strips/sanitises <svg>
-                # tags so the raw markup leaks out as text.  An iframe renders it.
                 st.components.v1.html(
                     f"<div style='display:flex;justify-content:center;"
                     f"align-items:center;padding:4px;'>{CRITERION_SVG[code]}</div>",
@@ -524,6 +722,17 @@ def login_screen():
     st.title("🧠 Mind Map Evaluation Portal")
     st.caption("Multilingual Human Evaluation — Arabic · English · Turkish")
     inject_css("en")
+
+    # Per-language instructions: the user reads only the one for their language.
+    # We show all three so each evaluator finds theirs without needing to log in.
+    en_html = (f"<div class='welcome-box'><h4>{UI['en']['welcome_title']}</h4>"
+                f"{UI['en']['welcome_body']}</div>")
+    ar_html = (f"<div class='welcome-box' style='direction:rtl;text-align:right'>"
+                f"<h4>{UI['ar']['welcome_title']}</h4>"
+                f"{UI['ar']['welcome_body']}</div>")
+    tr_html = (f"<div class='welcome-box'><h4>{UI['tr']['welcome_title']}</h4>"
+                f"{UI['tr']['welcome_body']}</div>")
+    st.markdown(en_html + ar_html + tr_html, unsafe_allow_html=True)
 
     with st.expander("📖 Read the 5 criteria guide first (recommended)",
                       expanded=True):
@@ -540,7 +749,6 @@ def login_screen():
             if not name:
                 st.error("Please enter your name.")
             else:
-                # Language is assigned by the admin — look up
                 lang = lookup_evaluator_language(name)
                 if lang is None:
                     st.error(
@@ -573,6 +781,14 @@ def rating_screen():
     st.markdown(f"### {L['title']}")
     st.caption(f"👤 {evaluator}  ·  {LANGS[language]}")
 
+    # Language-specific welcome / instructions, collapsible
+    rtl_attr = "direction:rtl;text-align:right" if language == "ar" else ""
+    welcome_label = L["welcome_title"]
+    with st.expander(f"ℹ️ {welcome_label}", expanded=False):
+        st.markdown(
+            f"<div class='welcome-box' style='{rtl_attr}'>"
+            f"{L['welcome_body']}</div>", unsafe_allow_html=True)
+
     ctrl = st.columns([1.4, 1])
     with ctrl[0]:
         st.markdown(
@@ -584,8 +800,11 @@ def rating_screen():
             st.rerun()
 
     if st.session_state.get("show_guide"):
-        with st.expander("📖 Criteria guide", expanded=True):
-            criteria_guide()
+        guide_label = {"en": "📖 Criteria guide",
+                        "ar": "📖 دليل المعايير",
+                        "tr": "📖 Kriter rehberi"}.get(language, "📖 Criteria guide")
+        with st.expander(guide_label, expanded=True):
+            criteria_guide(language)
 
     st.progress(done_count / total if total else 0)
 
@@ -611,13 +830,15 @@ def rating_screen():
     with st.form(f"rating_{item['sample_id']}_{item['model']}"):
         cols = st.columns(5)
         ratings = {}
-        for i, (code, _name, q) in enumerate(CRITERIA):
+        questions_localised = CRITERIA_QUESTIONS[language]
+        for i, (code, _name, _en_q) in enumerate(CRITERIA):
             display_name = CRITERIA_LABELS[language][code]
+            q_localised  = questions_localised[code]
             with cols[i]:
                 st.markdown(
                     f"<div class='crit-card'>"
                     f"<div class='crit-name'><span class='crit-code'>{code}</span>{display_name}</div>"
-                    f"<div class='crit-q'>{q}</div></div>",
+                    f"<div class='crit-q'>{q_localised}</div></div>",
                     unsafe_allow_html=True)
                 choice = st.radio(
                     label=code, options=[L["good"], L["bad"]],
