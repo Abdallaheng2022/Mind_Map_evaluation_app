@@ -69,142 +69,33 @@ CRITERIA = [
      "Is the graph readable — neither too dense nor too sparse?"),
 ]
 
-# Per-language descriptive question shown under each criterion name
-CRITERIA_QUESTIONS = {
-    "en": {c[0]: c[2] for c in CRITERIA},
-    "ar": {
-        "SC": "هل الفروع والعقد منظَّمة في تسلسل هرمي منطقي ومُحكَم؟",
-        "SA": "هل تعكس تسميات العقد والعلاقات معنى النص الأصلي بأمانة؟",
-        "CC": "هل تُمثِّل العقدة الجذر المفهوم المحوري للنص؟",
-        "BC": "هل تمت تغطية المفاهيم الأساسية والفرعية في النص؟",
-        "GC": "هل الرسم مقروء — ليس مكتظًا ولا متناثرًا؟",
-    },
-    "tr": {
-        "SC": "Dallar ve düğümler mantıklı, iyi biçimlendirilmiş bir hiyerarşide mi?",
-        "SA": "Düğüm etiketleri ve ilişkiler kaynağın anlamını sadık biçimde yansıtıyor mu?",
-        "CC": "Kök düğüm, kaynak metnin merkezî kavramını tanımlıyor mu?",
-        "BC": "Metnin ana ve alt kavramları kapsanmış mı?",
-        "GC": "Grafik okunaklı mı — ne çok yoğun ne de çok seyrek?",
-    },
-}
-
-# Translated headings inside the criteria guide
-GUIDE_HEADINGS = {
-    "en": {"good": "**Mark Good ✅ if**",
-            "bad":  "**Mark Bad ❌ if**"},
-    "ar": {"good": "**ضع \"جيد\" ✅ إذا**",
-            "bad":  "**ضع \"ضعيف\" ❌ إذا**"},
-    "tr": {"good": "**Şu durumda İyi ✅ işaretleyin**",
-            "bad":  "**Şu durumda Kötü ❌ işaretleyin**"},
-}
-
 CRITERION_GUIDANCE = {
-    "en": {
-        "SC": {"good": ["Parent → child links go in one direction (no cycles).",
-                        "Levels are balanced and meaningful.",
-                        "Sibling nodes are at comparable abstraction level."],
-               "bad": ["A child node also appears as a parent of the root.",
-                       "Random / unrelated branches share the same level.",
-                       "Crossing edges or duplicate sub-trees."]},
-        "SA": {"good": ["Every node label is supported by something in the text.",
-                        "Relations match what the text says (e.g., capital_of, born_in).",
-                        "No invented numbers, dates, or names."],
-               "bad": ["A node states a fact that contradicts the source.",
-                       "A relation is reversed (X is capital of Y instead of Y is capital of X).",
-                       "Hallucinated entities not present in the text."]},
-        "CC": {"good": ["The root names the entity / topic the text is about.",
-                        "If the text is about a person, the root IS that person."],
-               "bad": ["The root is a date, a country, or a minor sub-topic.",
-                       "The root is too generic (e.g. \"Information\")."]},
-        "BC": {"good": ["Every distinct section / paragraph of the source has a branch.",
-                        "Major facts (who, when, where, what) are reachable from the root."],
-               "bad": ["One paragraph is fully covered, others are completely missing.",
-                       "Numerical or list-like content (years, places) is collapsed into one node."]},
-        "GC": {"good": ["Each parent has 2–6 children (typical).",
-                        "Long phrases are split or summarised into readable labels.",
-                        "No isolated nodes that don't connect anywhere."],
-               "bad": ["A single parent has 10+ children at one level.",
-                       "Most labels are 30+ words long sentences.",
-                       "Only 1–2 nodes total, or hundreds with little structure."]},
-    },
-    "ar": {
-        "SC": {"good": ["الروابط من الأب إلى الأبناء في اتجاه واحد فقط (لا توجد دورات).",
-                        "المستويات متوازنة وذات دلالة.",
-                        "العقد الشقيقة على مستوى تجريد متقارب."],
-               "bad": ["عقدة ابن تظهر أيضًا كأب للجذر.",
-                       "فروع غير مترابطة تتقاسم المستوى نفسه.",
-                       "خطوط متقاطعة أو أشجار فرعية مكرَّرة."]},
-        "SA": {"good": ["كل تسمية عقدة مدعومة بشيء فعليّ في النص.",
-                        "العلاقات تطابق ما يقوله النص (مثل: عاصمة_لـ، وُلد_في).",
-                        "لا توجد أرقام أو تواريخ أو أسماء مختلَقة."],
-               "bad": ["عقدة تذكر معلومة تناقض النص الأصلي.",
-                       "علاقة معكوسة (مثلاً: X عاصمة Y بدلًا من Y عاصمة X).",
-                       "كيانات مهلوسة غير موجودة في النص."]},
-        "CC": {"good": ["الجذر يُسمِّي الكيان/الموضوع الذي يدور حوله النص.",
-                        "إذا كان النص عن شخص، فالجذر هو ذلك الشخص."],
-               "bad": ["الجذر تاريخ أو دولة أو موضوع فرعي ثانوي.",
-                       "الجذر عام بشكل مفرط (مثل: \"معلومات\")."]},
-        "BC": {"good": ["كل قسم/فقرة مميَّزة في النص لها فرع مقابل.",
-                        "الحقائق الرئيسية (من، متى، أين، ماذا) يمكن الوصول إليها من الجذر."],
-               "bad": ["فقرة واحدة مغطاة بالكامل، وأخرى غائبة كليًا.",
-                       "محتوى رقمي/قوائم (سنوات، أماكن) منهار في عقدة واحدة."]},
-        "GC": {"good": ["كل أب لديه عادةً من 2 إلى 6 أبناء.",
-                        "العبارات الطويلة مقسَّمة أو ملخَّصة إلى تسميات مقروءة.",
-                        "لا توجد عقد معزولة لا ترتبط بشيء."],
-               "bad": ["أب واحد له أكثر من 10 أبناء في مستوى واحد.",
-                       "معظم التسميات جمل من 30+ كلمة.",
-                       "عدد العقد 1 أو 2 فقط، أو مئات بلا بنية واضحة."]},
-    },
-    "tr": {
-        "SC": {"good": ["Ebeveyn → çocuk bağlantıları tek yönlüdür (döngü yok).",
-                        "Seviyeler dengeli ve anlamlıdır.",
-                        "Kardeş düğümler benzer soyutlama seviyesindedir."],
-               "bad": ["Bir çocuk düğüm aynı zamanda kökün ebeveyni olarak da görünür.",
-                       "Rastgele / ilgisiz dallar aynı seviyeyi paylaşır.",
-                       "Kesişen kenarlar veya yinelenen alt ağaçlar."]},
-        "SA": {"good": ["Her düğüm etiketi metindeki bir bilgiye dayanır.",
-                        "İlişkiler metnin söylediğiyle örtüşür (örn. başkenti, doğum yeri).",
-                        "Uydurma sayı, tarih veya isim yoktur."],
-               "bad": ["Bir düğüm kaynakla çelişen bir bilgi belirtir.",
-                       "Bir ilişki tersine çevrilmiştir (X, Y'nin başkentidir yerine Y, X'in başkentidir).",
-                       "Metinde olmayan, halüsinasyon kaynaklı varlıklar."]},
-        "CC": {"good": ["Kök, metnin konusu olan varlığı / temayı adlandırır.",
-                        "Metin bir kişi hakkındaysa, kök O kişidir."],
-               "bad": ["Kök; bir tarih, bir ülke veya küçük bir alt-konudur.",
-                       "Kök fazlasıyla geneldir (örn. \"Bilgi\")."]},
-        "BC": {"good": ["Kaynağın her ayrı bölümü/paragrafı için bir dal vardır.",
-                        "Temel olgular (kim, ne zaman, nerede, ne) köke ulaşılabilir."],
-               "bad": ["Bir paragraf tamamen ele alınmış, diğerleri tamamen eksiktir.",
-                       "Sayısal/liste içerik (yıllar, yerler) tek düğüme sıkıştırılmıştır."]},
-        "GC": {"good": ["Her ebeveynin tipik olarak 2–6 çocuğu vardır.",
-                        "Uzun ifadeler okunabilir etiketlere bölünmüş veya özetlenmiştir.",
-                        "Hiçbir yere bağlanmayan izole düğüm yoktur."],
-               "bad": ["Tek bir ebeveynin tek seviyede 10+ çocuğu vardır.",
-                       "Etiketlerin çoğu 30+ kelimelik cümlelerdir.",
-                       "Toplam 1–2 düğüm veya yapısı belirsiz yüzlerce düğüm."]},
-    },
-}
-
-# Localised criteria-guide intro shown above the per-criterion cards
-GUIDE_INTRO = {
-    "en": {
-        "title": "## 📖 The 5 evaluation criteria",
-        "body":  ("For every mind map you rate **5 criteria**, each as "
-                  "**Good (1)** or **Bad (0)**.  Read this once before you "
-                  "start; you can re-open it anytime."),
-    },
-    "ar": {
-        "title": "## 📖 المعايير الخمسة للتقييم",
-        "body":  ("لكل خريطة ذهنية ستُقيِّم **5 معايير**، كل معيار "
-                  "**جيد (1)** أو **ضعيف (0)**. اقرأ هذا مرّة قبل البدء، "
-                  "ويمكنك إعادة فتحه في أي وقت."),
-    },
-    "tr": {
-        "title": "## 📖 5 Değerlendirme Kriteri",
-        "body":  ("Her zihin haritası için **5 kriter** değerlendirirsiniz; "
-                  "her biri **İyi (1)** veya **Kötü (0)** olarak. Başlamadan "
-                  "önce bunu bir kez okuyun; istediğiniz zaman tekrar açabilirsiniz."),
-    },
+    "SC": {"good": ["Parent → child links go in one direction (no cycles).",
+                    "Levels are balanced and meaningful.",
+                    "Sibling nodes are at comparable abstraction level."],
+           "bad": ["A child node also appears as a parent of the root.",
+                   "Random / unrelated branches share the same level.",
+                   "Crossing edges or duplicate sub-trees."]},
+    "SA": {"good": ["Every node label is supported by something in the text.",
+                    "Relations match what the text says (e.g., capital_of, born_in).",
+                    "No invented numbers, dates, or names."],
+           "bad": ["A node states a fact that contradicts the source.",
+                   "A relation is reversed (X is capital of Y instead of Y is capital of X).",
+                   "Hallucinated entities not present in the text."]},
+    "CC": {"good": ["The root names the entity / topic the text is about.",
+                    "If the text is about a person, the root IS that person."],
+           "bad": ["The root is a date, a country, or a minor sub-topic.",
+                   "The root is too generic (e.g. \"Information\")."]},
+    "BC": {"good": ["Every distinct section / paragraph of the source has a branch.",
+                    "Major facts (who, when, where, what) are reachable from the root."],
+           "bad": ["One paragraph is fully covered, others are completely missing.",
+                   "Numerical or list-like content (years, places) is collapsed into one node."]},
+    "GC": {"good": ["Each parent has 2–6 children (typical).",
+                    "Long phrases are split or summarised into readable labels.",
+                    "No isolated nodes that don't connect anywhere."],
+           "bad": ["A single parent has 10+ children at one level.",
+                   "Most labels are 30+ words long sentences.",
+                   "Only 1–2 nodes total, or hundreds with little structure."]},
 }
 
 CRITERIA_LABELS = {
@@ -329,6 +220,14 @@ class SQLiteStorage:
 
     def __init__(self):
         self.conn = sqlite3.connect(str(LOCAL_DB_PATH), check_same_thread=False)
+        # Make SQLite as resilient as possible while still being a local file:
+        # - WAL = Write-Ahead Log (better concurrent reads, faster commits)
+        # - synchronous=FULL = fsync on every commit (no lost rows on crash)
+        try:
+            self.conn.execute("PRAGMA journal_mode=WAL")
+            self.conn.execute("PRAGMA synchronous=FULL")
+        except Exception:
+            pass
         self.conn.executescript(self.SCHEMA)
         self.conn.commit()
 
@@ -659,58 +558,29 @@ def inject_css(language):
     """, unsafe_allow_html=True)
 
 
-def criteria_guide(lang: str = "en"):
-    """Render the criteria guide. `lang` ∈ {"en","ar","tr"}; falls back to en."""
-    if lang not in ("en", "ar", "tr"):
-        lang = "en"
-
-    intro = GUIDE_INTRO[lang]
-    rtl = (lang == "ar")
-    rtl_attr = "dir='rtl'" if rtl else ""
-    rtl_style = "direction:rtl;text-align:right;" if rtl else ""
-
-    st.markdown(intro["title"])
-    if rtl:
-        # Streamlit's default markdown is LTR; wrap Arabic body in RTL container
-        st.markdown(f"<div style='{rtl_style}'>{intro['body']}</div>",
-                    unsafe_allow_html=True)
-    else:
-        st.write(intro["body"])
-
-    questions = CRITERIA_QUESTIONS[lang]
-    headings  = GUIDE_HEADINGS[lang]
-    guidance  = CRITERION_GUIDANCE[lang]
-    labels    = CRITERIA_LABELS[lang]
-
-    for code, _en_name, _en_q in CRITERIA:
-        name     = labels[code]
-        question = questions[code]
+def criteria_guide():
+    st.markdown("## 📖 The 5 evaluation criteria")
+    st.write(
+        "For every mind map you rate **5 criteria**, each as **Good (1)** or "
+        "**Bad (0)**.  Read this once before you start; you can re-open it anytime."
+    )
+    for code, name, question in CRITERIA:
         with st.container(border=True):
             cols = st.columns([1, 2])
             with cols[0]:
                 st.markdown(
-                    f"<div class='crit-name' {rtl_attr} style='{rtl_style}'>"
-                    f"<span class='crit-code'>{code}</span>{name}</div>"
-                    f"<div class='crit-q' {rtl_attr} style='{rtl_style}'>{question}</div>",
+                    f"<div class='crit-name'><span class='crit-code'>{code}</span>{name}</div>"
+                    f"<div class='crit-q'>{question}</div>",
                     unsafe_allow_html=True)
-                # Good list
-                if rtl:
-                    items_good = "".join(f"<li>{b}</li>" for b in guidance[code]["good"])
-                    st.markdown(
-                        f"<div style='{rtl_style}'>{headings['good']}"
-                        f"<ul>{items_good}</ul></div>", unsafe_allow_html=True)
-                    items_bad = "".join(f"<li>{b}</li>" for b in guidance[code]["bad"])
-                    st.markdown(
-                        f"<div style='{rtl_style}'>{headings['bad']}"
-                        f"<ul>{items_bad}</ul></div>", unsafe_allow_html=True)
-                else:
-                    st.markdown(headings["good"])
-                    for b in guidance[code]["good"]:
-                        st.markdown(f"- {b}")
-                    st.markdown(headings["bad"])
-                    for b in guidance[code]["bad"]:
-                        st.markdown(f"- {b}")
+                st.markdown("**Mark Good ✅ if**")
+                for b in CRITERION_GUIDANCE[code]["good"]:
+                    st.markdown(f"- {b}")
+                st.markdown("**Mark Bad ❌ if**")
+                for b in CRITERION_GUIDANCE[code]["bad"]:
+                    st.markdown(f"- {b}")
             with cols[1]:
+                # Use components.v1.html — st.markdown strips/sanitises <svg>
+                # tags so the raw markup leaks out as text.  An iframe renders it.
                 st.components.v1.html(
                     f"<div style='display:flex;justify-content:center;"
                     f"align-items:center;padding:4px;'>{CRITERION_SVG[code]}</div>",
@@ -800,11 +670,8 @@ def rating_screen():
             st.rerun()
 
     if st.session_state.get("show_guide"):
-        guide_label = {"en": "📖 Criteria guide",
-                        "ar": "📖 دليل المعايير",
-                        "tr": "📖 Kriter rehberi"}.get(language, "📖 Criteria guide")
-        with st.expander(guide_label, expanded=True):
-            criteria_guide(language)
+        with st.expander("📖 Criteria guide", expanded=True):
+            criteria_guide()
 
     st.progress(done_count / total if total else 0)
 
@@ -830,15 +697,13 @@ def rating_screen():
     with st.form(f"rating_{item['sample_id']}_{item['model']}"):
         cols = st.columns(5)
         ratings = {}
-        questions_localised = CRITERIA_QUESTIONS[language]
-        for i, (code, _name, _en_q) in enumerate(CRITERIA):
+        for i, (code, _name, q) in enumerate(CRITERIA):
             display_name = CRITERIA_LABELS[language][code]
-            q_localised  = questions_localised[code]
             with cols[i]:
                 st.markdown(
                     f"<div class='crit-card'>"
                     f"<div class='crit-name'><span class='crit-code'>{code}</span>{display_name}</div>"
-                    f"<div class='crit-q'>{q_localised}</div></div>",
+                    f"<div class='crit-q'>{q}</div></div>",
                     unsafe_allow_html=True)
                 choice = st.radio(
                     label=code, options=[L["good"], L["bad"]],
@@ -881,6 +746,64 @@ def admin_screen():
         if pwd:
             st.error("Wrong password.")
         st.stop()
+
+    # =====================================================================
+    # STORAGE STATUS BANNER — most important info, shown first
+    # =====================================================================
+    storage = get_storage()
+    backend_name = getattr(storage, "backend_name", "?")
+
+    if backend_name == "Google Sheets":
+        st.success(
+            f"✅ **Storage: Google Sheets** — your data is safely stored in the "
+            f"cloud sheet and will NOT be lost on app restart."
+        )
+    else:
+        # Big red warning — SQLite is ephemeral on Streamlit Cloud
+        st.error(
+            "⚠️ **DATA LOSS WARNING — Storage: SQLite (local file)**\n\n"
+            "Your ratings are saved to a **local file** that is **wiped every time**:\n"
+            "- The Streamlit Cloud container restarts (≈ every 30 min of inactivity)\n"
+            "- The app is rebooted or redeployed\n"
+            "- The container is migrated to another machine\n\n"
+            "**Action required:** Switch to Google Sheets storage by adding "
+            "`gcp_service_account` and `spreadsheet_id` to your `.streamlit/secrets.toml` "
+            "(see README for setup steps). Until then, **download a backup CSV/JSON "
+            "after every evaluator session** (see the 💾 Backup tab below)."
+        )
+        with st.expander("📖 How to enable Google Sheets storage"):
+            st.markdown(
+                "**Step 1.** Create a Google Cloud project and enable the Google "
+                "Sheets API + Google Drive API.\n\n"
+                "**Step 2.** Create a Service Account → generate a JSON key.\n\n"
+                "**Step 3.** Create a Google Sheet and share it with the service "
+                "account email (Editor permission).\n\n"
+                "**Step 4.** In Streamlit Cloud, go to your app → ⚙ Settings → "
+                "Secrets, and add:\n"
+            )
+            st.code('''admin_password = "..."
+spreadsheet_id = "1AbCdEf...your-sheet-id..."
+worksheet      = "ratings"
+
+[gcp_service_account]
+type           = "service_account"
+project_id     = "..."
+private_key_id = "..."
+private_key    = """-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----\\n"""
+client_email   = "...@....iam.gserviceaccount.com"
+client_id      = "..."
+auth_uri       = "https://accounts.google.com/o/oauth2/auth"
+token_uri      = "https://oauth2.googleapis.com/token"
+auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+client_x509_cert_url        = "..."
+''', language="toml")
+            st.markdown(
+                "**Step 5.** Reboot the app. The banner above will turn green.\n\n"
+                "Until then, please use the 💾 Backup tab below to download data "
+                "regularly."
+            )
+
+    st.divider()
 
     # ---- Evaluator management (admin-only) ----
     st.subheader("👥 Manage evaluators (name → language)")
@@ -1033,19 +956,56 @@ def admin_screen():
                  height=min(35 + 35 * len(prog), 360))
 
     st.divider()
-    c1, c2 = st.columns(2)
-    with c1:
+    st.subheader("💾 Backup & Export")
+
+    if backend_name == "Google Sheets":
+        st.info(
+            "Your data is on Google Sheets — it's already safe in the cloud. "
+            "Use these downloads for offline analysis or as additional snapshots."
+        )
+    else:
+        st.warning(
+            "⚠️ **Reminder:** SQLite is the only copy of your data. "
+            "Download a backup **after every evaluator session** "
+            "and save it to your own machine (Google Drive / Dropbox / local disk)."
+        )
+
+    stamp = datetime.now().strftime("%Y%m%d_%H%M")
+
+    cols = st.columns(3)
+    with cols[0]:
         st.download_button(
             "⬇️ Full ratings CSV",
             df.to_csv(index=False).encode("utf-8"),
-            f"ratings_{datetime.now():%Y%m%d_%H%M}.csv", "text/csv",
+            f"ratings_{stamp}.csv", "text/csv",
             width='stretch')
-    with c2:
+    with cols[1]:
         st.download_button(
             "⬇️ Summary CSV (Lang × Model)",
             agg.to_csv(index=False).encode("utf-8"),
-            f"summary_{datetime.now():%Y%m%d_%H%M}.csv", "text/csv",
+            f"summary_{stamp}.csv", "text/csv",
             width='stretch')
+    with cols[2]:
+        st.download_button(
+            "⬇️ Full ratings JSON",
+            df.to_json(orient="records", force_ascii=False, indent=2).encode("utf-8"),
+            f"ratings_{stamp}.json", "application/json",
+            width='stretch')
+
+    # Raw SQLite database file backup (only meaningful when SQLite is active)
+    if backend_name != "Google Sheets":
+        try:
+            if LOCAL_DB_PATH.exists():
+                db_bytes = LOCAL_DB_PATH.read_bytes()
+                st.download_button(
+                    f"⬇️ Raw SQLite database file ({len(db_bytes)//1024} KB) — "
+                    f"emergency restore copy",
+                    db_bytes,
+                    f"ratings_local_{stamp}.db",
+                    "application/x-sqlite3",
+                    width='stretch')
+        except Exception as e:
+            st.caption(f"DB file unavailable: {e}")
 
 
 # ---------------------------------------------------------------------------

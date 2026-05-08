@@ -106,7 +106,11 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-By default, ratings are saved to a local SQLite file `ratings_local.db`. Good for testing.
+By default, ratings are saved to a local SQLite file `ratings_local.db`. **This is fine for testing on your laptop, but it is dangerous on Streamlit Cloud.**
+
+> ⚠️ **Streamlit Community Cloud wipes the local file system** on every container restart (≈ every 30 min of inactivity, on every redeploy, and whenever the platform reschedules your app to a new machine). If you rely on SQLite, **all collected ratings will eventually be lost**.
+>
+> For any real evaluator session — even a single one with paid annotators — you **must** configure the Google Sheets backend below before sharing the app URL.
 
 ---
 
